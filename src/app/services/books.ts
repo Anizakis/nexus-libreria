@@ -24,7 +24,17 @@ export class BooksService {
           synopsis: (item.sinopsis || item.synopsis || '').toString().trim(),
           image: (item.imagen || item.image || '').toString().trim(),
           category: (item.categoria || item.category || '').toString().trim(),
-          price: item.precio || item.price
+          price: (function() {
+            const p = item.precio ?? item.price;
+            const pNum = p != null && !isNaN(Number(p)) ? Number(p) : NaN;
+            // if API price is a sensible value within [10,30], keep it (rounded)
+            if (!isNaN(pNum) && pNum >= 10 && pNum <= 30) {
+              return Math.round(pNum);
+            }
+            // otherwise generate a random integer price between 10 and 30 (inclusive)
+            const randInt = Math.floor(Math.random() * 21) + 10;
+            return randInt;
+          })()
         }));
       })
     );

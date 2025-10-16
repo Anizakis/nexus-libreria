@@ -1,8 +1,18 @@
 /* Header styles */
-.navbar-brand { font-weight: 600; }
-.btn .badge { font-size: 0.7rem; }
-.btn[position-relative] { position: relative; }
+.navbar-brand { font-weight: 700; font-size: 1.05rem; color: #1f2937; }
+.logo-mark { font-size: 1.25rem; }
+.brand-text { font-size: 1rem; }
 
-/* ensure the badge looks good on the cart button */
-.position-relative .badge { transform: translate(25%, -25%); }
+nav.navbar { padding: 0.5rem 0; }
+.cart-btn { border-radius: 8px; padding: 0.375rem 0.5rem; }
+.cart-btn svg { vertical-align: middle; }
+.cart-btn .badge { font-size: 0.65rem; }
+
+/* Tweak badge position so it doesn't overflow on small screens */
+.cart-btn { position: relative; }
+.cart-btn .badge { position: absolute; top: -6px; right: -6px; }
+
+/* subtle shadow for header */
+nav.shadow-sm { box-shadow: 0 1px 6px rgba(31,41,55,0.06); }
+
 
