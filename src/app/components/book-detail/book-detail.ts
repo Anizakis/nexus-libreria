@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-book-detail',
-  imports: [],
+  standalone: true,
+  imports: [CommonModule],
   templateUrl: './book-detail.html',
-  styleUrl: './book-detail.css'
+  styleUrls: ['./book-detail.css']
 })
-export class BookDetail {
+export class BookDetailComponent {
 
 }

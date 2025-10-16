@@ -1,0 +1,8 @@
+/* Header styles */
+.navbar-brand { font-weight: 600; }
+.btn .badge { font-size: 0.7rem; }
+.btn[position-relative] { position: relative; }
+
+/* ensure the badge looks good on the cart button */
+.position-relative .badge { transform: translate(25%, -25%); }
+
