@@ -1,10 +1,17 @@
-h1 {
-  color: #2c3e50;
+:root {
+  --brand: #1f2937;
+  --accent: #0d6efd;
 }
-h3 {
-  color: #2980b9;
-}
-img {
-  max-height: 200px;
-  object-fit: cover;
+
+.hero { padding: 2.5rem 0; }
+.hero .display-5 { color: var(--brand); }
+.hero-img { height: 320px; }
+.hero-img img { width: 100%; height: 100%; object-fit: cover; }
+
+.feature-card { transition: transform .18s ease, box-shadow .18s ease; }
+.feature-card:hover { transform: translateY(-6px); box-shadow: 0 8px 20px rgba(31,41,55,0.08); }
+.feature-card .card-img-top { height: 160px; object-fit: cover; }
+
+@media (max-width: 767px) {
+  .hero-img { height: 220px; }
 }

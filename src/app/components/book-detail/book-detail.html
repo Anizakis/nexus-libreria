@@ -1,1 +1,67 @@
-<p>book-detail works!</p>
+<div class="container py-4" *ngIf="!loading; else loadingTpl">
+  <div *ngIf="book; else notFoundTpl" class="card shadow-sm border-0">
+    <div class="row g-0">
+      <div class="col-md-5">
+        <div class="book-img p-3">
+          <img [src]="book.image || 'assets/images/book-placeholder.jpg'" [alt]="book.title" class="img-fluid rounded">
+        </div>
+      </div>
+      <div class="col-md-7">
+        <div class="card-body">
+          <div class="d-flex justify-content-between align-items-start">
+            <div>
+              <h2 class="h4 mb-1">{{ book.title }}</h2> <!-- Interpolación -->
+              <p class="text-muted mb-1">por <strong>{{ book.author }}</strong> · {{ book.year }} · <small class="text-capitalize">{{ book.category }}</small></p>
+              <div class="mb-2">
+                <span class="badge bg-secondary me-2" *ngIf="book.publisher">{{ book.publisher }}</span>
+                <span class="badge" [ngClass]="{'bg-danger': isOnSale(), 'bg-info': !isOnSale()}">
+                  {{ isOnSale() ? 'Oferta' : 'Nuevo' }}
+                </span>
+              </div>
+            </div>
+            <div class="text-end">
+              <div class="price fs-3 fw-bold text-primary">{{ book.price | currency:'EUR':'symbol':'1.0-0' }}</div> <!-- Pipe + interpolation -->
+              <div class="small text-muted">IVA incl.</div>
+            </div>
+          </div>
+
+          <hr>
+
+          <div class="description mb-3">
+            <p *ngIf="book.description; else shortDesc">{{ book.description }}</p> <!-- *ngIf -->
+            <ng-template #shortDesc>
+              <p>Descripción breve no disponible. Este libro presenta una lectura apasionante sobre la materia.</p>
+            </ng-template>
+          </div>
+
+          <div class="d-flex align-items-center mb-3">
+            <label class="me-2 mb-0">Cantidad</label>
+            <input type="number" min="1" [(ngModel)]="qty" class="form-control w-auto me-3" style="min-width:80px"> <!-- two-way binding -->
+            <button class="btn btn-primary me-2" (click)="addToCart()">Añadir al carrito</button> <!-- event binding -->
+            <button class="btn btn-outline-secondary" (click)="back()">Volver</button>
+          </div>
+
+          <div class="mt-4">
+            <h6 class="mb-2">Reseñas destacadas</h6>
+            <ul class="list-unstyled">
+              <li *ngFor="let r of (book.reviews || [{user:'Ana', text:'Lectura imprescindible.'}])" class="mb-2">
+                <strong>{{ r.user }}</strong> — <span class="text-muted">{{ r.text }}</span>
+              </li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #loadingTpl>
+  <div class="d-flex justify-content-center py-5">
+    <div class="spinner-border text-primary" role="status"><span class="visually-hidden">Cargando...</span></div>
+  </div>
+</ng-template>
+
+<ng-template #notFoundTpl>
+  <div class="alert alert-warning">Libro no encontrado. <a routerLink="/">Volver al inicio</a></div>
+</ng-template>
