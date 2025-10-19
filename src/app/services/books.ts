@@ -29,11 +29,12 @@ export class BooksService {
             const pNum = p != null && !isNaN(Number(p)) ? Number(p) : NaN;
             // if API price is a sensible value within [10,30], keep it (rounded)
             if (!isNaN(pNum) && pNum >= 10 && pNum <= 30) {
-              return Math.round(pNum);
+              return Math.round(pNum * 100) / 100;
             }
-            // otherwise generate a random integer price between 10 and 30 (inclusive)
-            const randInt = Math.floor(Math.random() * 21) + 10;
-            return randInt;
+            // otherwise generate a deterministic price based on the book's ID
+            const idNum = parseInt(String(item.id).replace(/[^0-9]/g, '')) || 0;
+            const hash = (idNum * 1234567) % 21; // generates a consistent number between 0-20
+            return 10 + hash; // maps to range 10-30
           })()
         }));
       })

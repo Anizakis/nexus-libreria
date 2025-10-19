@@ -74,15 +74,16 @@ export class BookDetailComponent implements OnInit {
 
   addToCart(): void {
     if (!this.book) return;
-    // Llamadas a CartService: adapta según la API real de tu servicio (add, addToCart, pushItem...)
-    if ((this.cartService as any).add) {
-      (this.cartService as any).add(this.book, this.qty);
-    } else if ((this.cartService as any).addToCart) {
-      (this.cartService as any).addToCart(this.book, this.qty);
-    } else {
-      // Fallback mínimo: emitir en consola y navegar al carrito
-      console.warn('CartService no expone add/addToCart. Ajusta BookDetailComponent para integrar carrito.');
-    }
+    
+    this.cartService.add({
+      id: this.book.id,
+      title: this.book.title,
+      author: this.book.author,
+      price: this.book.price,
+      image: this.book.image,
+      qty: this.qty
+    });
+
     // Navegar al carrito para confirmar al usuario
     this.router.navigate(['/cart']);
   }
