@@ -3,14 +3,88 @@
 
 .card { border-radius: .6rem; }
 
-.book-img { height: 100%; display:flex; align-items:center; justify-content:center; background: linear-gradient(180deg, rgba(13,110,253,0.04), transparent); }
-.book-img img { width: 100%; max-height: 420px; object-fit: contain; border-radius: .35rem; }
+.book-img { 
+  height: 100%; 
+  display: flex; 
+  align-items: center; 
+  justify-content: center; 
+  background: linear-gradient(180deg, rgba(13,110,253,0.04), transparent);
+  position: relative;
+}
+
+.book-img img { 
+  width: 100%; 
+  max-height: 420px; 
+  object-fit: contain; 
+  border-radius: .35rem; 
+}
 
 .price { color: var(--accent, #0d6efd); }
 
 .description p { line-height: 1.6; color: #374151; }
 
+/* Estilos para el selector de cantidad */
+.quantity-selector {
+  max-width: 300px;
+}
+
+.quantity-control {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.quantity-control input[type="number"] {
+  font-weight: 500;
+  text-align: center;
+  padding: 0.375rem;
+  border-radius: 0.375rem;
+}
+
+.quantity-control input[type="number"]:focus {
+  border-color: #86b7fe;
+  box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
+
+/* Quitar flechas del input number */
+.quantity-control input[type="number"]::-webkit-inner-spin-button,
+.quantity-control input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  appearance: none;
+  margin: 0;
+}
+
+.quantity-control input[type="number"] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+/* Estilos para los botones de cantidad */
+.quantity-control .btn {
+  height: 38px;
+  width: 38px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.quantity-control .btn i {
+  font-size: 1.25rem;
+  line-height: 1;
+}
+
 @media (max-width: 767px) {
   .book-img img { max-height: 260px; }
+  
+  .d-flex.align-items-center.mb-3 {
+    flex-direction: column;
+    align-items: stretch !important;
+  }
+  
+  .input-group {
+    width: 100% !important;
+    margin-bottom: 1rem;
+  }
 }
 /* ...existing code... */

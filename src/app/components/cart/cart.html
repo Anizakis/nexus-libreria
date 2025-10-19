@@ -1,6 +1,6 @@
-<div class="container">
+<div class="container mt-4">
 	<h2>Carrito</h2>
-	<div *ngIf="items.length === 0" class="alert alert-info">El carrito está vacío.</div>
+	<div *ngIf="!items.length" class="alert alert-info">El carrito está vacío</div>
 
 	<div *ngIf="items.length > 0">
 		<div class="list-group mb-3">

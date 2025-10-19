@@ -40,10 +40,10 @@ export class BooksService {
     );
   }
 
-  getBookById(id: number): Observable<any | undefined> {
+  getBookById(id: string | number): Observable<any | undefined> {
     // The mock API may not provide a direct /:id endpoint, so reuse getBooks and find the item.
     return this.getBooks().pipe(
-      map((list: any[]) => list.find(b => b.id === id))
+      map((list: any[]) => list.find(b => String(b.id) === String(id)))
     );
   }
   // Puedes añadir métodos para filtrar por título, autor, etc.

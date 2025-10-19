@@ -2,13 +2,14 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { Router, RouterModule } from '@angular/router';
 import { BooksService } from '../../services/books';
 import { CartService } from '../../services/cart';
 
 @Component({
   selector: 'app-search',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, RouterModule],
   templateUrl: './search.html',
   styleUrls: ['./search.css']
 })
@@ -22,7 +23,15 @@ export class SearchComponent implements OnInit {
   private allBooks: any[] = [];
   categories: string[] = [];
 
-  constructor(private booksService: BooksService, private cartService: CartService) {}
+  constructor(
+    private booksService: BooksService, 
+    private cartService: CartService,
+    private router: Router
+  ) {}
+
+  viewBookDetails(bookId: string) {
+    this.router.navigate(['/book-detail', bookId]);
+  }
 
   ngOnInit(): void {
     this.loadBooks();

@@ -16,12 +16,12 @@
       </ul>
 
       <div class="d-flex align-items-center">
-        <button class="btn btn-outline-primary position-relative cart-btn" (click)="openCart()" aria-label="Abrir carrito">
+        <button class="btn position-relative cart-btn" (click)="openCart()" aria-label="Abrir carrito">
           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-cart" viewBox="0 0 16 16">
             <path d="M0 1.5A.5.5 0 0 1 .5 1h1a.5.5 0 0 1 .485.379L2.89 5H14.5a.5.5 0 0 1 .49.598l-1.5 6A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L1.01 2H.5a.5.5 0 0 1-.5-.5zM3.14 6l1.25 5h8.11l1.2-5H3.14z"/>
             <path d="M6 13.5a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm5 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/>
           </svg>
-          <span *ngIf="cartCount > 0" class="badge bg-danger position-absolute top-0 start-100 translate-middle">{{ cartCount }}</span>
+          <span *ngIf="cartCount > 0" class="cart-badge">{{ cartCount }}</span>
         </button>
       </div>
     </div>

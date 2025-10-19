@@ -1,7 +1,11 @@
 <div class="container py-4" *ngIf="!loading; else loadingTpl">
   <div *ngIf="book; else notFoundTpl" class="card shadow-sm border-0">
     <div class="row g-0">
-      <div class="col-md-5">
+      <div class="col-md-5 position-relative">
+        <button class="btn btn-outline-secondary position-absolute m-3" (click)="back()" style="z-index: 1;">
+          <i class="bi bi-arrow-left me-1"></i>
+          Volver
+        </button>
         <div class="book-img p-3">
           <img [src]="book.image || 'assets/images/book-placeholder.jpg'" [alt]="book.title" class="img-fluid rounded">
         </div>
@@ -34,11 +38,31 @@
             </ng-template>
           </div>
 
-          <div class="d-flex align-items-center mb-3">
-            <label class="me-2 mb-0">Cantidad</label>
-            <input type="number" min="1" [(ngModel)]="qty" class="form-control w-auto me-3" style="min-width:80px"> <!-- two-way binding -->
-            <button class="btn btn-primary me-2" (click)="addToCart()">Añadir al carrito</button> <!-- event binding -->
-            <button class="btn btn-outline-secondary" (click)="back()">Volver</button>
+          <div class="mb-4">
+            <div class="quantity-selector mb-3" style="max-width: 300px;">
+              <label class="form-label">Cantidad:</label>
+              <div class="d-flex align-items-center gap-2">
+                <div class="d-flex align-items-center quantity-control">
+                  <button class="btn btn-outline-secondary px-3" type="button" (click)="decrementQty()" [disabled]="qty <= 1">
+                    <i class="bi bi-dash-lg"></i>
+                  </button>
+                  <input type="number" 
+                         class="form-control mx-2 text-center" 
+                         style="width: 80px"
+                         [ngModel]="qty" 
+                         (ngModelChange)="updateQty($event)"
+                         min="1" 
+                         max="99">
+                  <button class="btn btn-outline-secondary px-3" type="button" (click)="incrementQty()" [disabled]="qty >= 99">
+                    <i class="bi bi-plus-lg"></i>
+                  </button>
+                </div>
+                <button class="btn btn-primary" (click)="addToCart()">
+                  <i class="bi bi-cart-plus me-2"></i>
+                  Añadir
+                </button>
+              </div>
+            </div>
           </div>
 
           <div class="mt-4">
