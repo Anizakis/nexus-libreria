@@ -1,4 +1,3 @@
-// search component implementation
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -42,7 +41,6 @@ export class SearchComponent implements OnInit {
       next: (data) => {
         this.allBooks = Array.isArray(data) ? data : [];
         this.books = [...this.allBooks];
-        // populate categories (unique, sorted)
         const set = new Set<string>();
         this.allBooks.forEach(b => {
           if (b.category) set.add(b.category);
@@ -57,6 +55,7 @@ export class SearchComponent implements OnInit {
     });
   }
 
+  // Filtros para buscar libros
   searchBooks(): void {
     const title = this.title.trim().toLowerCase();
     const author = this.author.trim().toLowerCase();
@@ -72,8 +71,8 @@ export class SearchComponent implements OnInit {
     });
   }
 
+  // Muestro los libros en cards de Bootstrap
   addToCart(book: any): void {
-    // Use CartService to add item (increments qty if already present)
     try {
       this.cartService.add({
         id: book.id,

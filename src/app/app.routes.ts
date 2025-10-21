@@ -4,6 +4,8 @@ import { SearchComponent } from './components/search/search';
 import { CartComponent } from './components/cart/cart';
 import { BookDetailComponent } from './components/book-detail/book-detail';
 
+// Rutas de la aplicación
+
 export const routes: Routes = [
   { path: '', component: LandingComponent },
   { path: 'search', component: SearchComponent },

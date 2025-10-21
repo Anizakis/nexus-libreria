@@ -6,6 +6,7 @@ import { map } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
+//API
 export class BooksService {
 
   private apiUrl = 'https://mock.apidog.com/m1/1069422-1057565-default/books';
@@ -24,17 +25,17 @@ export class BooksService {
           synopsis: (item.sinopsis || item.synopsis || '').toString().trim(),
           image: (item.imagen || item.image || '').toString().trim(),
           category: (item.categoria || item.category || '').toString().trim(),
+          //Funcion para precio inventado
           price: (function() {
             const p = item.precio ?? item.price;
             const pNum = p != null && !isNaN(Number(p)) ? Number(p) : NaN;
-            // if API price is a sensible value within [10,30], keep it (rounded)
             if (!isNaN(pNum) && pNum >= 10 && pNum <= 30) {
               return Math.round(pNum * 100) / 100;
             }
-            // otherwise generate a deterministic price based on the book's ID
+        
             const idNum = parseInt(String(item.id).replace(/[^0-9]/g, '')) || 0;
-            const hash = (idNum * 1234567) % 21; // generates a consistent number between 0-20
-            return 10 + hash; // maps to range 10-30
+            const hash = (idNum * 1234567) % 21; 
+            return 10 + hash; 
           })()
         }));
       })
@@ -42,10 +43,9 @@ export class BooksService {
   }
 
   getBookById(id: string | number): Observable<any | undefined> {
-    // The mock API may not provide a direct /:id endpoint, so reuse getBooks and find the item.
+    // Uso getBooks() porque la API no tiene endpoint para un solo libro
     return this.getBooks().pipe(
       map((list: any[]) => list.find(b => String(b.id) === String(id)))
     );
   }
-  // Puedes añadir métodos para filtrar por título, autor, etc.
 }

@@ -15,6 +15,7 @@ export class CartComponent implements OnDestroy {
   private sub: Subscription | null = null;
 
   constructor(private cartService: CartService) {
+    // Guardo el carrito en localStorage para no perderlo al recargar
     this.sub = this.cartService.items$.subscribe(list => this.items = list);
   }
 
@@ -41,6 +42,7 @@ export class CartComponent implements OnDestroy {
   }
 
   total(): number {
+    // Calculo el total multiplicando precio por cantidad
     return this.items.reduce((s, it) => s + ((it.price ?? 0) * (it.qty ?? 1)), 0);
   }
 }

@@ -12,6 +12,7 @@ import { CartService } from '../../services/cart';
   templateUrl: './book-detail.html',
   styleUrls: ['./book-detail.css']
 })
+// Componente para ver el detalle de un libro
 export class BookDetailComponent implements OnInit {
   book: any = null;
   qty: number = 1;
@@ -94,7 +95,7 @@ export class BookDetailComponent implements OnInit {
   }
 
   isOnSale(): boolean {
-    // Criterio estético para destacar ofertas (ejemplo: price < 15)
+    // Criterio estético para destacar ofertas (ejemplo: precio < 15)
     return !!this.book && this.book.price && Number(this.book.price) < 15;
   }
 }
