@@ -27,7 +27,7 @@ export class SearchComponent implements OnInit {
     private cartService: CartService,
     private router: Router
   ) {}
-
+//Navegación al detalle
   viewBookDetails(bookId: string) {
     this.router.navigate(['/book-detail', bookId]);
   }
@@ -71,7 +71,7 @@ export class SearchComponent implements OnInit {
     });
   }
 
-  // Muestro los libros en cards de Bootstrap
+  // Añado los libros al carrito
   addToCart(book: any): void {
     try {
       this.cartService.add({

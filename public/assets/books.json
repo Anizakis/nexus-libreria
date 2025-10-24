@@ -1,0 +1,202 @@
+[
+  {
+    "id": 1,
+    "titulo": "Sombras del Silencio",
+    "autor": "Clara Méndez",
+    "año": 1998,
+    "sinopsis": "Un viaje psicológico a través de los recuerdos ocultos de una mente fragmentada.",
+    "imagen": "https://m.media-amazon.com/images/I/31QyP63LYuL._SY445_SX342_ControlCacheEqualizer_.jpg",
+    "categoria": "Novela",
+    "precio": 20
+  },
+  {
+    "id": 2,
+    "titulo": "El Último Horizonte",
+    "autor": "Raúl Ortega",
+    "año": 2015,
+    "sinopsis": "Una exploración de la vida humana en colonias espaciales más allá de la Vía Láctea.",
+    "imagen": "https://m.media-amazon.com/images/I/61f2iuCRjTL._SL1149_.jpg",
+    "categoria": "Ciencia",
+    "precio": 22
+  },
+  {
+    "id": 3,
+    "titulo": "Ecos de la Tierra",
+    "autor": "Marina López",
+    "año": 2007,
+    "sinopsis": "Historias de pueblos olvidados que resurgen con fuerza en la memoria colectiva.",
+    "imagen": "https://m.media-amazon.com/images/I/81RXw3bFyUL._SL1500_.jpg",
+    "categoria": "Historia",
+    "precio": 18
+  },
+  {
+    "id": 4,
+    "titulo": "Luz en la Tormenta",
+    "autor": "Julián Herrera",
+    "año": 2021,
+    "sinopsis": "Una historia de resiliencia y esperanza en medio de la catástrofe climática.",
+    "imagen": "https://m.media-amazon.com/images/I/51At6M30tVL.jpg",
+    "categoria": "Novela",
+    "precio": 25
+  },
+  {
+    "id": 5,
+    "titulo": "El Guardián del Laberinto",
+    "autor": "Isabel Torres",
+    "año": 1993,
+    "sinopsis": "Un arqueólogo descubre secretos ocultos en un templo ancestral.",
+    "imagen": "https://m.media-amazon.com/images/I/81356ZgoLzL._SL1500_.jpg",
+    "categoria": "Infantil",
+    "precio": 15
+  },
+  {
+    "id": 6,
+    "titulo": "Fragmentos de Cristal",
+    "autor": "Andrés Pardo",
+    "año": 2010,
+    "sinopsis": "Relatos entrelazados que muestran la fragilidad de las relaciones humanas.",
+    "imagen": "https://m.media-amazon.com/images/I/71oMkHn0SOS._SL1500_.jpg",
+    "categoria": "Ciencia",
+    "precio": 21
+  },
+  {
+    "id": 7,
+    "titulo": "Entre Dos Mundos",
+    "autor": "Valeria Ríos",
+    "año": 2018,
+    "sinopsis": "Una joven descubre un portal que conecta realidades paralelas.",
+    "imagen": "https://m.media-amazon.com/images/I/81RKgQLNxAL._SL1500_.jpg",
+    "categoria": "Infantil",
+    "precio": 16
+  },
+  {
+    "id": 8,
+    "titulo": "El Susurro del Océano",
+    "autor": "Diego Navarro",
+    "año": 2002,
+    "sinopsis": "Un pescador encuentra en el mar la clave para redescubrir su pasado.",
+    "imagen": "https://m.media-amazon.com/images/I/71F0xUIdheL._SL1500_.jpg",
+    "categoria": "Novela",
+    "precio": 19
+  },
+  {
+    "id": 9,
+    "titulo": "El Tiempo Roto",
+    "autor": "Camila Vega",
+    "año": 1999,
+    "sinopsis": "Un reloj antiguo permite a su dueño alterar pequeños fragmentos del destino.",
+    "imagen": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYkyVMGvdh-DRIA-ig37nMsvhAtKY2lzj6YQ&s",
+    "categoria": "Ciencia",
+    "precio": 17
+  },
+  {
+    "id": 10,
+    "titulo": "La Ciudad Invisible",
+    "autor": "Esteban Cruz",
+    "año": 2023,
+    "sinopsis": "Una metrópolis secreta se esconde bajo las calles de una gran capital.",
+    "imagen": "https://images.cdn3.buscalibre.com/fit-in/360x360/0b/72/0b722e3df9db3912c931b0c12c36020b.jpg",
+    "categoria": "Infantil",
+    "precio": 23
+  },
+  {
+    "id": 11,
+    "titulo": "Cenizas del Ayer",
+    "autor": "Lucía Fernández",
+    "año": 2001,
+    "sinopsis": "Un hombre enfrenta los fantasmas de su pasado mientras reconstruye su vida.",
+    "imagen": "https://img.wattpad.com/cover/52275338-256-k509570.jpg",
+    "categoria": "Novela",
+    "precio": 18
+  },
+  {
+    "id": 12,
+    "titulo": "Horizontes Perdidos",
+    "autor": "Mateo Ramírez",
+    "año": 2016,
+    "sinopsis": "Viajeros interplanetarios buscan un mundo habitable para la humanidad.",
+    "imagen": "https://m.media-amazon.com/images/I/71AaU7axHNL._SL1500_.jpg",
+    "categoria": "Ciencia",
+    "precio": 24
+  },
+  {
+    "id": 13,
+    "titulo": "Memorias de Fuego",
+    "autor": "Carolina Suárez",
+    "año": 1995,
+    "sinopsis": "Crónicas de luchas y revoluciones que cambiaron el rumbo de un país.",
+    "imagen": "https://m.media-amazon.com/images/I/71UkYGidqCL._SL1500_.jpg",
+    "categoria": "Historia",
+    "precio": 17
+  },
+  {
+    "id": 14,
+    "titulo": "El Viento y la Arena",
+    "autor": "Gabriel Soto",
+    "año": 2009,
+    "sinopsis": "Una travesía por el desierto que se convierte en una búsqueda espiritual.",
+    "imagen": "https://m.media-amazon.com/images/I/71XjP7zEZFL._SL1329_.jpg",
+    "categoria": "Novela",
+    "precio": 19
+  },
+  {
+    "id": 15,
+    "titulo": "El Reino Oculto",
+    "autor": "Paula Díaz",
+    "año": 2022,
+    "sinopsis": "Un mundo fantástico poblado por criaturas mágicas se revela a los niños.",
+    "imagen": "https://m.media-amazon.com/images/I/81i1bbvK1NL._SL1500_.jpg",
+    "categoria": "Infantil",
+    "precio": 15
+  },
+  {
+    "id": 16,
+    "titulo": "Laberintos Cuánticos",
+    "autor": "Felipe Andrade",
+    "año": 2012,
+    "sinopsis": "Un científico queda atrapado en una paradoja espacio-temporal.",
+    "imagen": "https://m.media-amazon.com/images/I/6178w0WJA0L._SL1491_.jpg",
+    "categoria": "Ciencia",
+    "precio": 22
+  },
+  {
+    "id": 17,
+    "titulo": "Raíces del Olvido",
+    "autor": "Sofía Morales",
+    "año": 1997,
+    "sinopsis": "Una investigación sobre culturas antiguas perdidas en la selva.",
+    "imagen": "https://m.media-amazon.com/images/I/81j6+VSlumL._SL1500_.jpg",
+    "categoria": "Historia",
+    "precio": 18
+  },
+  {
+    "id": 18,
+    "titulo": "Mariposas Negras",
+    "autor": "Fernando Aguilar",
+    "año": 2005,
+    "sinopsis": "Un thriller psicológico sobre secretos familiares y traiciones.",
+    "imagen": "https://m.media-amazon.com/images/I/71zx7KyIqDL._SL1500_.jpg",
+    "categoria": "Novela",
+    "precio": 20
+  },
+  {
+    "id": 19,
+    "titulo": "Puentes de Cristal",
+    "autor": "Ana Beltrán",
+    "año": 2019,
+    "sinopsis": "Una metáfora sobre la fragilidad de los lazos humanos en la era digital.",
+    "imagen": "https://m.media-amazon.com/images/I/71h1pXTegVL._SL1500_.jpg",
+    "categoria": "Novela",
+    "precio": 21
+  },
+  {
+    "id": 20,
+    "titulo": "El Jardín de las Sombras",
+    "autor": "Iván Herrera",
+    "año": 1990,
+    "sinopsis": "Relatos cortos que exploran lo oculto detrás de lo cotidiano.",
+    "imagen": "https://m.media-amazon.com/images/I/61JIaprU+vL.jpg",
+    "categoria": "Novela",
+    "precio": 16
+  }
+]

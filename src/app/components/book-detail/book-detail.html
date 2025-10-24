@@ -7,14 +7,14 @@
           Volver
         </button>
         <div class="book-img p-3">
-          <img [src]="book.image || 'assets/images/book-placeholder.jpg'" [alt]="book.title" class="img-fluid rounded">
+          <img [src]="book.image" [alt]="book.title" class="img-fluid rounded">
         </div>
       </div>
       <div class="col-md-7">
         <div class="card-body">
           <div class="d-flex justify-content-between align-items-start">
             <div>
-              <h2 class="h4 mb-1">{{ book.title }}</h2> <!-- Interpolación -->
+              <h2 class="h4 mb-1">{{ book.title }}</h2> 
               <p class="text-muted mb-1">por <strong>{{ book.author }}</strong> · {{ book.year }} · <small class="text-capitalize">{{ book.category }}</small></p>
               <div class="mb-2">
                 <span class="badge bg-secondary me-2" *ngIf="book.publisher">{{ book.publisher }}</span>
