@@ -1,0 +1,106 @@
+<div class="row g-4">
+  <div class="col-12">
+    <h1>Contacto — Nexus Librería</h1>
+    <p class="text-muted">¿Tienes una consulta? Usa este formulario para solicitarnos información o reservas.</p>
+  </div>
+
+  <div *ngIf="loadingInfo" class="col-12">
+    <div class="spinner-border text-primary" role="status"><span class="visually-hidden">Cargando...</span></div>
+  </div>
+
+  <div *ngIf="!loadingInfo" class="col-12">
+    <div class="row">
+      <!-- Información librería (izquierda) -->
+      <div class="col-12 col-lg-6">
+        <div class="card shadow-sm info-card h-100">
+          <div class="card-body">
+            <!-- Solo mostrar los campos solicitados, usando notación con corchetes -->
+            <header class="mb-3">
+              <h2 class="h5 mb-1">{{ libraryInfo?.['name'] || 'Librería' }}</h2>
+              <p class="text-muted mb-0">Información de contacto</p>
+            </header>
+
+            <div class="mb-3">
+              <h6 class="mb-1">Dirección</h6>
+              <p class="mb-0 text-muted">{{ libraryInfo?.['address'] }}</p>
+            </div>
+
+            <div class="mb-3">
+              <h6 class="mb-1">Teléfono</h6>
+              <p class="mb-0">
+                <a *ngIf="libraryInfo?.['phone']" [href]="'tel:' + libraryInfo?.['phone']">{{ libraryInfo?.['phone'] }}</a>
+                <span *ngIf="!libraryInfo?.['phone']" class="text-muted">No disponible</span>
+              </p>
+            </div>
+
+            <div class="mb-3">
+              <h6 class="mb-1">Correo</h6>
+              <p class="mb-0">
+                <a *ngIf="libraryInfo?.['email']" [href]="'mailto:' + libraryInfo?.['email']">{{ libraryInfo?.['email'] }}</a>
+                <span *ngIf="!libraryInfo?.['email']" class="text-muted">No disponible</span>
+              </p>
+            </div>
+
+            <div class="mt-4">
+              <h6 class="mb-2">Horario</h6>
+              <table class="table hours-table mb-0">
+                <tbody *ngIf="orderedHours.length > 0">
+                  <tr *ngFor="let h of orderedHours">
+                    <td class="text-capitalize" style="width:40%">{{ h.day }}</td>
+                    <td>{{ h.time }}</td>
+                  </tr>
+                </tbody>
+                <tbody *ngIf="orderedHours.length === 0">
+                  <tr><td colspan="2" class="text-muted">Horario no disponible</td></tr>
+                </tbody>
+              </table>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- Formulario (derecha) -->
+      <div class="col-12 col-lg-6">
+        <div class="card shadow-sm p-3 h-100 form-card">
+          <div class="card-body">
+            <h3 class="h6 mb-3">Formulario de contacto</h3>
+
+            <form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
+              <div class="mb-3">
+                <label class="form-label">Nombre</label>
+                <input formControlName="name" class="form-control" placeholder="Tu nombre">
+                <div *ngIf="form.controls['name'].touched && form.controls['name'].invalid" class="text-danger small">Nombre requerido.</div>
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label">Email</label>
+                <input formControlName="email" class="form-control" placeholder="tu@correo.com">
+                <div *ngIf="form.controls['email'].touched && form.controls['email'].invalid" class="text-danger small">Introduce un email válido.</div>
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label">Asunto</label>
+                <input formControlName="subject" class="form-control" placeholder="Asunto">
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label">Mensaje</label>
+                <textarea formControlName="message" rows="5" class="form-control" placeholder="Escribe tu consulta..."></textarea>
+                <div *ngIf="form.controls['message'].touched && form.controls['message'].invalid" class="text-danger small">Mínimo 10 caracteres.</div>
+              </div>
+
+              <div class="d-flex align-items-center">
+                <button class="btn btn-primary me-2" type="submit">Enviar solicitud</button>
+                <button class="btn btn-outline-secondary" type="button" (click)="form.reset()">Limpiar</button>
+              </div>
+
+              <div *ngIf="submitted" class="alert alert-success mt-3">{{ successMessage }}</div>
+            </form>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,3 +1,41 @@
+:host { display:block; }
+
+/* Asegúrate de tener .app-container global (styles.css) */
+.app-container { max-width: 1200px; margin: 0 auto; padding-left: 1rem; padding-right: 1rem; width:100%; box-sizing:border-box; }
+
+/* Forzar que el nav quede centrado en pantallas grandes */
+@media (min-width: 992px) {
+  .navbar .navbar-collapse {
+    display: flex !important;
+    justify-content: center;
+  }
+  .navbar .navbar-nav {
+    flex-direction: row;
+    gap: 1.25rem;
+  }
+}
+
+/* Ajustes del logo y cart para alineación estable */
+.navbar-brand { display:flex; align-items:center; gap:0.5rem; font-weight:600; }
+.cart-btn { background: transparent; border: none; position: relative; }
+.cart-badge {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  background: #dc3545;
+  color: #fff;
+  border-radius: 999px;
+  padding: 0 6px;
+  font-size: 0.75rem;
+  line-height: 1.5;
+}
+
+/* En pantallas pequeñas: nav colapsa y se muestra vertical */
+@media (max-width: 991px) {
+  .navbar .navbar-nav { flex-direction: column; gap: 0.5rem; }
+  .cart-btn { margin-left: auto; }
+}
+
 /* Header styles */
 .navbar-brand { font-weight: 700; font-size: 1.05rem; color: #1f2937; }
 .logo-mark { font-size: 1.25rem; }

@@ -1,16 +1,19 @@
-import { Component, signal } from '@angular/core';
+import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from './components/header/header';
-
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, HeaderComponent],
+  imports: [
+    CommonModule,
+    RouterOutlet,
+    HeaderComponent
+  ],
   templateUrl: './app.html',
   styleUrls: ['./app.css']
 })
-
 export class App {
-  protected readonly appTitle = signal('nexus-libreria');
+  appTitle() { return 'Nexus Librería'; }
 }

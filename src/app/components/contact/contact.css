@@ -1,0 +1,30 @@
+:host { display:block; }
+
+.card { border-radius: .6rem; }
+
+.info-card img { max-width: 160px; object-fit: cover; }
+
+.info-card .card-body { padding: 1rem; }
+
+.info-list li { margin-bottom: .35rem; color: #374151; }
+
+.badge { background: #f3f4f6; color: #111827; border-radius: .35rem; padding: .25rem .5rem; font-weight: 500; }
+
+.form-card .card-body { padding: 1rem; }
+
+.hours-table {
+  border-collapse: collapse;
+  width: 100%;
+}
+.hours-table td {
+  padding: .35rem .5rem;
+  border-top: 1px solid rgba(0,0,0,0.05);
+  vertical-align: middle;
+  color: #374151;
+}
+.hours-table tr:first-child td { border-top: 0; }
+
+@media (max-width: 991px) {
+  .info-card img { max-width: 120px; }
+  .app-container { padding-left: .75rem; padding-right: .75rem; }
+}
