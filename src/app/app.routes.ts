@@ -11,7 +11,13 @@ export const routes: Routes = [
   { path: 'catalogo/:id', component: BookDetailComponent },
   { path: 'cart', component: CartComponent },
 
-  // Contact carga lazy como componente standalone
+  // Carga lazy de componentes standalone
+  { path: 'cafeteria', loadComponent: () => import('./components/cafeteria/cafeteria').then(m => m.CafeteriaComponent) },
+  { path: 'cafeteria/:id', loadComponent: () => import('./components/cafeteria/cafeteria-detail').then(m => m.CafeteriaDetailComponent) },
+
+  { path: 'coworking', loadComponent: () => import('./components/coworking/coworking').then(m => m.CoworkingComponent) },
+  { path: 'coworking/:id', loadComponent: () => import('./components/coworking/coworking-detail').then(m => m.CoworkingDetailComponent) },
+
   { path: 'contacto', loadComponent: () => import('./components/contact/contact').then(m => m.ContactComponent) },
 
   { path: 'search', redirectTo: 'catalogo', pathMatch: 'full' },
