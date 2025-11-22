@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { RouterModule } from '@angular/router';
-import { CafeteriaService } from '../../services/cafeteria';
+import { CafeteriaService } from '../../services/serviciocafeteria';
 import { CartService } from '../../services/cart';
 
 @Component({

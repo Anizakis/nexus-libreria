@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { ReactiveFormsModule, FormBuilder, Validators, FormGroup } from '@angular/forms';
-import { CafeteriaService } from '../../services/cafeteria';
+import { CafeteriaService } from '../../services/serviciocafeteria';
 import { RouterModule } from '@angular/router';
 import { CartService } from '../../services/cart';
 

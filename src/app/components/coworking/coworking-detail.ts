@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { ReactiveFormsModule, FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { CoworkingService } from '../../services/coworking';
+import { CoworkingService } from '../../services/serviciocoworking';
 
 @Component({
   selector: 'app-coworking-detail',
@@ -31,8 +31,8 @@ export class CoworkingDetailComponent implements OnInit {
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id') || '';
     this.svc.getById(id).subscribe({
-      next: res => { this.item = res; this.loading = false; },
-      error: err => { console.error(err); this.error = 'No se pudo cargar el espacio.'; this.loading = false; }
+      next: (res: any) => { this.item = res; this.loading = false; },
+      error: (err: any) => { console.error(err); this.error = 'No se pudo cargar la sala.'; this.loading = false; }
     });
   }
 
