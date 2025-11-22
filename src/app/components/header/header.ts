@@ -13,19 +13,20 @@ import { Subscription } from 'rxjs';
 })
 export class HeaderComponent implements OnDestroy {
   cartCount = 0;
-  private sub: Subscription | null = null;
+  private sub?: Subscription;
 
-  constructor(private cart: CartService, private router: Router) {
-    this.sub = this.cart.items$.subscribe(list => {
-      this.cartCount = list.reduce((s, it) => s + (it.qty ?? 0), 0);
+  constructor(private router: Router, private cart: CartService) {
+    this.sub = this.cart.items$.subscribe((items: any[]) => {
+      // CartService uses 'qty' for quantity
+      this.cartCount = (items || []).reduce((s: number, i: any) => s + (i.qty ?? 0), 0);
     });
   }
 
-  ngOnDestroy(): void {
-    this.sub?.unsubscribe();
+  openCart() {
+    window.location.href = '/cart';
   }
 
-  openCart() {
-    this.router.navigate(['/cart']);
+  ngOnDestroy() {
+    this.sub?.unsubscribe();
   }
 }

@@ -89,6 +89,17 @@ export class BookDetailComponent implements OnInit {
     this.router.navigate(['/cart']);
   }
 
+  addToCartFromDetail(qty = 1) {
+    this.cartService.add({
+      id: `book_${this.book?.id}`, // <- prefijo libro
+      title: this.book?.title ?? this.book?.name ?? 'Libro',
+      author: this.book?.author ?? undefined,
+      price: this.book?.price ?? 0,
+      image: this.book?.image ?? undefined,
+      qty: qty
+    });
+  }
+
   back(): void {
     // Volvemos siempre al catálogo
     this.router.navigate(['/search']);

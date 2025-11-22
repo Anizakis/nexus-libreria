@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ReactiveFormsModule, FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { CafeteriaService } from '../../services/cafeteria';
 import { RouterModule } from '@angular/router';
+import { CartService } from '../../services/cart';
 
 @Component({
   selector: 'app-cafeteria-detail',
@@ -19,8 +20,9 @@ export class CafeteriaDetailComponent implements OnInit {
   form!: FormGroup;
   placing = false;
   successMessage = '';
+  addedMessage: string | null = null;
 
-  constructor(private route: ActivatedRoute, private svc: CafeteriaService, private fb: FormBuilder) {
+  constructor(private route: ActivatedRoute, private svc: CafeteriaService, private fb: FormBuilder, private cart: CartService) {
     this.form = this.fb.group({
       quantity: [1, [Validators.required, Validators.min(1)]],
       note: ['']
@@ -30,7 +32,11 @@ export class CafeteriaDetailComponent implements OnInit {
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id') || '';
     this.svc.getProductById(id).subscribe({
-      next: p => { this.product = p; this.loading = false; },
+      next: p => {
+        console.log('Product detail response:', p);
+        this.product = p;
+        this.loading = false;
+      },
       error: err => { console.error(err); this.error = 'No se pudo cargar el producto.'; this.loading = false; }
     });
   }
@@ -48,5 +54,20 @@ export class CafeteriaDetailComponent implements OnInit {
       next: res => { this.successMessage = 'Pedido enviado correctamente.'; this.placing = false; this.form.reset({ quantity:1, note: '' }); },
       error: err => { console.error(err); this.error = 'Error al enviar el pedido.'; this.placing = false; }
     });
+  }
+
+  addToCartFromDetail() {
+    const qty = Number(this.form.value.quantity) || 1;
+    this.cart.add({
+      id: `caf_${this.product?.id}`, // <- prefijo cafetería
+      title: this.product?.name ?? this.product?.title ?? 'Producto',
+      author: this.product?.author ?? undefined,
+      price: this.product?.price ?? 0,
+      image: this.product?.image ?? this.product?.imagen ?? undefined,
+      qty
+    });
+
+    this.addedMessage = `${this.product?.name ?? 'Producto'} añadido (${qty}).`;
+    setTimeout(() => { this.addedMessage = null; }, 2500);
   }
 }

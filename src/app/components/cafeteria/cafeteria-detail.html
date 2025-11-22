@@ -7,9 +7,13 @@
 
   <div *ngIf="error" class="alert alert-danger">{{ error }}</div>
 
+  <div *ngIf="addedMessage" class="alert alert-success py-2 mb-3">{{ addedMessage }}</div>
+
   <div *ngIf="product" class="row g-4">
     <div class="col-12 col-md-5">
-      <img *ngIf="product.image" [src]="product.image" [alt]="product.name" class="img-fluid rounded">
+      <!-- Mostrar exactamente la misma propiedad image que usa /cafeteria -->
+      <img *ngIf="product?.image" [src]="product.image" [alt]="product?.name" class="img-fluid rounded">
+      <div *ngIf="!product?.image" class="text-muted">Imagen no disponible</div>
     </div>
     <div class="col-12 col-md-7">
       <h2 class="h4">{{ product.name }}</h2>
@@ -27,7 +31,8 @@
         </div>
 
         <div class="d-flex align-items-center">
-          <button class="btn btn-primary me-2" type="submit" [disabled]="placing">{{ placing ? 'Enviando...' : 'Pedir' }}</button>
+          <button class="btn btn-outline-primary me-2" type="button" (click)="addToCartFromDetail()">Añadir al carrito</button>
+          <button class="btn btn-primary" type="submit" [disabled]="placing">{{ placing ? 'Enviando...' : 'Pedir' }}</button>
         </div>
 
         <div *ngIf="successMessage" class="alert alert-success mt-3">{{ successMessage }}</div>

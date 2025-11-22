@@ -1,14 +1,15 @@
-import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { Router, RouterModule } from '@angular/router';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Router } from '@angular/router';
 import { BooksService } from '../../services/books';
 import { CartService } from '../../services/cart';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-search',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterModule],
+  imports: [CommonModule, RouterModule, FormsModule],
   templateUrl: './search.html',
   styleUrls: ['./search.css']
 })
@@ -21,15 +22,20 @@ export class SearchComponent implements OnInit {
   books: any[] = [];
   private allBooks: any[] = [];
   categories: string[] = [];
+  addedMessage: string | null = null;
+  error: string | null = null; // <-- propiedad añadida para las alertas
 
   constructor(
-    private booksService: BooksService, 
-    private cartService: CartService,
-    private router: Router
-  ) {}
-//Navegación al detalle
-  viewBookDetails(bookId: string) {
-    this.router.navigate(['/book-detail', bookId]);
+    private svc: BooksService,
+    private router: Router,
+    private cart: CartService,
+    private cdr: ChangeDetectorRef
+  ) { }
+
+  // Navegar a detalle
+  viewBookDetails(id: any): void {
+    if (id == null) return;
+    this.router.navigate(['/catalogo', id]);
   }
 
   ngOnInit(): void {
@@ -37,7 +43,7 @@ export class SearchComponent implements OnInit {
   }
 
   private loadBooks(): void {
-    this.booksService.getBooks().subscribe({
+    this.svc.getBooks().subscribe({
       next: (data) => {
         this.allBooks = Array.isArray(data) ? data : [];
         this.books = [...this.allBooks];
@@ -74,7 +80,7 @@ export class SearchComponent implements OnInit {
   // Añado los libros al carrito
   addToCart(book: any): void {
     try {
-      this.cartService.add({
+      this.cart.add({
         id: book.id,
         title: book.title,
         author: book.author,
@@ -86,6 +92,16 @@ export class SearchComponent implements OnInit {
     } catch (e) {
       console.error('No se pudo añadir al carrito', e);
     }
+  }
+
+  // Muestra la confirmación 
+  showAddedMessage(title: string | undefined): void {
+    this.addedMessage = `${title ?? 'Ítem'} añadido al carrito.`;
+    this.cdr.detectChanges();
+    setTimeout(() => {
+      this.addedMessage = null;
+      this.cdr.detectChanges();
+    }, 2500);
   }
 
 }

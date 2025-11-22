@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 import { RouterModule } from '@angular/router';
 import { CafeteriaService } from '../../services/cafeteria';
+import { CartService } from '../../services/cart';
 
 @Component({
   selector: 'app-cafeteria',
@@ -19,7 +21,10 @@ export class CafeteriaComponent implements OnInit {
   // seleccionado actual (nombre de categoría) — null = mostrar todos
   selectedCategoryName: string | null = null;
 
-  constructor(private svc: CafeteriaService) {}
+  // mensaje temporal de confirmación
+  addedMessage: string | null = null;
+
+  constructor(private svc: CafeteriaService, private cart: CartService, private router: Router) {}
 
   ngOnInit(): void {
     this.svc.getProducts().subscribe({
@@ -69,5 +74,25 @@ export class CafeteriaComponent implements OnInit {
   // Productos ya filtrados
   get filteredProducts(): any[] {
     return this.products.filter(p => this.matchesSelectedCategory(p));
+  }
+
+  addToCart(product: any) {
+    this.cart.add({
+      id: `caf_${product.id}`, // <- prefijo para distinguir productos de cafetería
+      title: product.name ?? product.title ?? 'Producto',
+      author: product.author ?? undefined,
+      price: product.price ?? 0,
+      image: product.image ?? product.imagen ?? undefined,
+      qty: 1
+    });
+
+    this.addedMessage = `${product.name ?? product.title ?? 'Producto'} añadido al carrito.`;
+    setTimeout(() => { this.addedMessage = null; }, 2500);
+  }
+
+  // Navegar a detalle de producto al clicar la card
+  viewProductDetails(id: any): void {
+    if (id == null) return;
+    this.router.navigate(['/cafeteria', id]);
   }
 }
