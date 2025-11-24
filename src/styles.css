@@ -11,3 +11,22 @@
 
 /* pequeñas mejoras */
 img { max-width: 100%; height: auto; display: block; }
+
+/* Efecto hover en cards (similar a landing) */
+.card {
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.10) !important;
+}
+
+/* Para cards clicables */
+.card.cursor-pointer {
+  cursor: pointer;
+}
+
+.card.cursor-pointer:hover {
+  background-color: #f8f9fa;
+}

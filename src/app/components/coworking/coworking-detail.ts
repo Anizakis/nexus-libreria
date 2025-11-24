@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { ReactiveFormsModule, FormBuilder, Validators, FormGroup } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Router } from '@angular/router';
 import { CoworkingService } from '../../services/serviciocoworking';
 import { CartService } from '../../services/cart';
 
@@ -13,48 +13,92 @@ import { CartService } from '../../services/cart';
   templateUrl: './coworking-detail.html',
   styleUrls: ['./coworking-detail.css']
 })
-export class CoworkingDetailComponent implements OnInit {
+export class CoworkingDetailComponent implements OnInit, OnDestroy {
   item: any = null;
   loading = true;
   error: string | null = null;
-  form!: FormGroup;
   booking = false;
   successMessage = '';
+  addedMessage: string | null = null;
+  form!: FormGroup;
+  private subscription: any;
 
   constructor(
     private route: ActivatedRoute,
     private svc: CoworkingService,
     private fb: FormBuilder,
-    private cart: CartService
+    private cart: CartService,
+    private router: Router
   ) {
     this.form = this.fb.group({
       date: ['', Validators.required],
       hours: [1, [Validators.required, Validators.min(1)]],
-      note: ['']
+      notes: ['']
     });
   }
 
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id') || '';
-    this.svc.getById(id).subscribe({
-      next: (res: any) => { this.item = res; this.loading = false; },
-      error: (err: any) => { console.error(err); this.error = 'No se pudo cargar la sala.'; this.loading = false; }
-    });
+    console.log('🔵 NAVEGANDO A SALA CON ID:', id, typeof id);
+    this.subscription = this.svc.getById(id).subscribe({
+      next: (res: any) => {
+        this.item = res;
+        this.loading = false;
+        console.log('✅ SALA RECIBIDA:', res);
+        console.log('🖼️ IMAGEN:', res?.image);
+       },
+       error: (err: any) => {
+         console.error(err);
+         this.error = 'No se pudo cargar la sala.';
+         this.loading = false;
+       }
+     });
+   }
+
+  ngOnDestroy(): void {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
   }
 
-  placeBooking(): void {
-    if (this.form.invalid) { this.form.markAllAsTouched(); return; }
+  addToCart(): void {
+    if (this.form.invalid) {
+      this.form.markAllAsTouched();
+      return;
+    }
+
     this.booking = true;
-    setTimeout(() => {
-      // Guardar la reserva en localStorage
-      this.cart.saveReservation(
-        this.item?.id,
-        this.form.value.date,
-        Number(this.form.value.hours)
-      );
-      this.successMessage = 'Solicitud de reserva enviada.';
-      this.booking = false;
-      this.form.reset({ date: '', hours: 1, note: '' });
-    }, 800);
+
+    // Guardar reserva en localStorage
+    this.cart.saveReservation(
+      this.item.id,
+      this.form.value.date,
+      Number(this.form.value.hours)
+    );
+
+    // Añadir sala al carrito
+    this.cart.add({
+      id: `room_${this.item.id}`,
+      title: this.item.name,
+      price: this.item?.precio ?? 0,
+      image: this.item.image,
+      qty: 1,
+      meta: {
+        type: 'room',
+        roomId: this.item.id,
+        date: this.form.value.date,
+        hours: this.form.value.hours,
+        notes: this.form.value.notes
+      }
+    } as any);
+
+    this.addedMessage = 'Sala añadida al carrito.';
+    this.booking = false;
+    this.form.reset({ date: '', hours: 1, notes: '' });
+    setTimeout(() => this.addedMessage = null, 2500);
+  }
+
+  back(): void {
+    this.router.navigate(['/coworking']);
   }
 }

@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { ReactiveFormsModule, FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { CafeteriaService } from '../../services/serviciocafeteria';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Router } from '@angular/router';
 import { CartService } from '../../services/cart';
 
 @Component({
@@ -22,7 +22,7 @@ export class CafeteriaDetailComponent implements OnInit {
   successMessage = '';
   addedMessage: string | null = null;
 
-  constructor(private route: ActivatedRoute, private svc: CafeteriaService, private fb: FormBuilder, private cart: CartService) {
+  constructor(private route: ActivatedRoute, private svc: CafeteriaService, private fb: FormBuilder, private cart: CartService, private router: Router) {
     this.form = this.fb.group({
       quantity: [1, [Validators.required, Validators.min(1)]],
       note: ['']
@@ -69,5 +69,9 @@ export class CafeteriaDetailComponent implements OnInit {
 
     this.addedMessage = `${this.product?.name ?? 'Producto'} añadido (${qty}).`;
     setTimeout(() => { this.addedMessage = null; }, 2500);
+  }
+
+  back(): void {
+    this.router.navigate(['/cafeteria']);
   }
 }
