@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ReactiveFormsModule, FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { CoworkingService } from '../../services/serviciocoworking';
+import { CartService } from '../../services/cart';
 
 @Component({
   selector: 'app-coworking-detail',
@@ -20,7 +21,12 @@ export class CoworkingDetailComponent implements OnInit {
   booking = false;
   successMessage = '';
 
-  constructor(private route: ActivatedRoute, private svc: CoworkingService, private fb: FormBuilder) {
+  constructor(
+    private route: ActivatedRoute,
+    private svc: CoworkingService,
+    private fb: FormBuilder,
+    private cart: CartService
+  ) {
     this.form = this.fb.group({
       date: ['', Validators.required],
       hours: [1, [Validators.required, Validators.min(1)]],
@@ -38,9 +44,14 @@ export class CoworkingDetailComponent implements OnInit {
 
   placeBooking(): void {
     if (this.form.invalid) { this.form.markAllAsTouched(); return; }
-    // por ahora simula reserva (si quieres, podemos POSTear a un endpoint)
     this.booking = true;
     setTimeout(() => {
+      // Guardar la reserva en localStorage
+      this.cart.saveReservation(
+        this.item?.id,
+        this.form.value.date,
+        Number(this.form.value.hours)
+      );
       this.successMessage = 'Solicitud de reserva enviada.';
       this.booking = false;
       this.form.reset({ date: '', hours: 1, note: '' });

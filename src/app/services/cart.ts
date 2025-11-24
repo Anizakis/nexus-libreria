@@ -8,6 +8,8 @@ export interface CartItem {
   price?: number;
   image?: string;
   qty: number;
+  meta?: any;
+  reservationId?: string | number | null;
 }
 
 @Injectable({
@@ -81,8 +83,63 @@ export class CartService {
     this.saveToStorage(items);
   }
 
-  clear() {
-    this.itemsSubject.next([]);
-    this.saveToStorage([]);
+  /**
+   * Vacía el carrito (sujeto a la implementación interna).
+   */
+  clear(): void {
+    try {
+      // Si el servicio utiliza un Subject interno lo vaciamos si existe
+      const anyThis: any = this as any;
+      if (anyThis.itemsSubject && typeof anyThis.itemsSubject.next === 'function') {
+        anyThis.itemsSubject.next([]);
+      } else {
+        // fallback: borrar persistencia local
+        localStorage.removeItem('cart');
+      }
+    } catch (e) {
+      try { localStorage.removeItem('cart'); } catch {}
+    }
+  }
+
+  /**
+   * Calcula el total del carrito (price * qty).
+   */
+  getTotal(): number {
+    try {
+      const items: any[] = (typeof (this as any).getItems === 'function') ? (this as any).getItems() : [];
+      return (items || []).reduce((s, it) => {
+        const qty = Number(it.qty ?? it.quantity ?? 0) || 0;
+        const price = Number(it.price ?? 0) || 0;
+        return s + (qty * price);
+      }, 0);
+    } catch (e) {
+      return 0;
+    }
+  }
+
+  /**
+   * Guardar reserva local (para recuperarla en checkout).
+   */
+  saveReservation(roomId: string | number, date: string, hours: number): void {
+    try {
+      localStorage.setItem('reservation', JSON.stringify({ roomId, date, hours, savedAt: new Date().toISOString() }));
+    } catch (e) { console.warn('No se pudo guardar la reserva', e); }
+  }
+
+  /**
+   * Obtener reserva local.
+   */
+  getReservation(): any {
+    try {
+      const stored = localStorage.getItem('reservation');
+      return stored ? JSON.parse(stored) : null;
+    } catch (e) { return null; }
+  }
+
+  /**
+   * Limpiar reserva al enviar pedido.
+   */
+  clearReservation(): void {
+    try { localStorage.removeItem('reservation'); } catch {}
   }
 }

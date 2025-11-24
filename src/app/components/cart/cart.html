@@ -20,7 +20,7 @@
 			</div>
 		</div>
 
-		<div class="d-flex justify-content-between align-items-center">
+		<div class="d-flex justify-content-between align-items-center mb-3">
 			<div>
 				<button class="btn btn-sm btn-outline-danger" (click)="clear()">Vaciar carrito</button>
 			</div>
@@ -28,5 +28,110 @@
 						<strong>Total: {{ total() | number:'1.0-0' }} €</strong>
 					</div>
 		</div>
+
+		<!-- Mensajes globales -->
+		<div *ngIf="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
+		<div *ngIf="successMessage" class="alert alert-success">{{ successMessage }}</div>
+
+		<!-- Botón para abrir checkout -->
+		<button class="btn btn-primary btn-lg w-100" (click)="openCheckout()">Proceder a checkout</button>
 	</div>
 </div>
+
+<!-- Modal de checkout (fondo oscuro + card centrada) -->
+<div *ngIf="showCheckoutModal" class="modal-overlay">
+  <div class="modal-content modal-content-wide">
+    <!-- Contenedor con dos columnas: formulario + resumen -->
+    <div class="row g-0 h-100">
+      <!-- Columna izquierda: formulario -->
+      <div class="col-md-6 border-end">
+     <div class="modal-header d-flex justify-content-between align-items-center mb-3">
+       <h5>Checkout</h5>
+       <button class="btn-close" (click)="closeCheckout()"></button>
+     </div>
+
+     <!-- Errores en modal -->
+     <div *ngIf="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
+
+     <!-- Datos de contacto -->
+     <div class="mb-3">
+       <label class="form-label">Nombre</label>
+       <input type="text" class="form-control" [(ngModel)]="contactName" placeholder="Tu nombre">
+     </div>
+     <div class="mb-3">
+       <label class="form-label">Email</label>
+       <input type="email" class="form-control" [(ngModel)]="contactEmail" placeholder="tu@email.com">
+     </div>
+
+     <!-- Opciones de entrega -->
+     <div class="mb-3">
+        <label class="form-label">Lugar de recogida</label>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" id="mostrador" name="delivery" [(ngModel)]="delivery" value="mostrador">
+          <label class="form-check-label" for="mostrador">Mostrador</label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" id="mesa" name="delivery" [(ngModel)]="delivery" value="mesa">
+          <label class="form-check-label" for="mesa">Entregar en mesa (cafetería)</label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" id="sala" name="delivery" [(ngModel)]="delivery" value="sala" [disabled]="!hasReservation">
+          <label class="form-check-label" for="sala">Sala reservada (coworking)</label>
+          <small *ngIf="!hasReservation" class="text-muted d-block">No tienes una sala reservada.</small>
+        </div>
+      </div>
+
+      <!-- Selector de mesa (solo si elige "Entregar en mesa") -->
+      <div *ngIf="delivery === 'mesa'" class="mb-3">
+        <label class="form-label">Número de mesa</label>
+        <select class="form-select" [(ngModel)]="selectedTableNumber">
+          <option [ngValue]="null">-- selecciona --</option>
+          <option *ngFor="let n of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]" [value]="n">Mesa {{ n }}</option>
+        </select>
+        <small class="text-muted d-block mt-1">💡 Puedes encontrar el número de mesa en la parte central de la mesa.</small>
+      </div>
+      </div>
+
+      <!-- Columna derecha: resumen de carrito -->
+      <div class="col-md-6 p-3 d-flex flex-column">
+         <div style="flex: 1; overflow-y: auto;">
+           <h6 class="mb-3 fw-bold">Resumen del pedido</h6>
+
+           <!-- Resumen de reserva si existe -->
+           <div *ngIf="getReservation()" class="card mb-3 p-2 bg-light">
+             <h6 class="mb-2">📅 Reserva de sala</h6>
+             <small class="text-muted">Fecha: <strong>{{ getReservation()?.date }}</strong></small><br>
+             <small class="text-muted">Horas: <strong>{{ getReservation()?.hours }}h</strong></small>
+           </div>
+
+           <!-- Lista de items en carrito -->
+           <div class="mb-3">
+             <h6 class="mb-2">Productos</h6>
+             <div *ngFor="let it of items" class="d-flex justify-content-between mb-2 pb-2 border-bottom">
+               <div style="flex: 1;">
+                 <small><strong>{{ it.title }}</strong></small><br>
+                 <small class="text-muted">{{ it.author }}</small>
+               </div>
+               <div class="text-end">
+                 <small>{{ it.qty }}x</small><br>
+                 <small><strong>{{ (it.price || 0) | number:'1.2-2' }} €</strong></small>
+               </div>
+             </div>
+           </div>
+
+           <!-- Total -->
+           <div class="d-flex justify-content-between align-items-center pt-2 border-top fw-bold">
+             <span>Total:</span>
+             <span class="fs-5">{{ total() | number:'1.2-2' }} €</span>
+           </div>
+         </div>
+
+         <!-- Botones al pie de la columna derecha -->
+         <div class="d-flex gap-2 justify-content-end mt-4 pt-3 border-top">
+           <button class="btn btn-outline-secondary" (click)="closeCheckout()" [disabled]="loading">Cancelar</button>
+           <button class="btn btn-primary" (click)="submitOrder()" [disabled]="loading">{{ loading ? 'Enviando…' : 'Confirmar' }}</button>
+         </div>
+       </div>
+     </div>
+   </div>
+ </div>
