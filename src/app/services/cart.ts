@@ -84,7 +84,7 @@ export class CartService {
   }
 
   /**
-   * Vacía el carrito (sujeto a la implementación interna).
+   * Vacía el carrito
    */
   clear(): void {
     try {

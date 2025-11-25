@@ -1,47 +1,42 @@
-<div class="container mt-5">
-  <div class="row align-items-center hero">
-    <div class="col-lg-6">
-      <h1 class="display-5 fw-bold">{{ tienda }}</h1>
-      <p class="lead text-muted">{{ descripcion }}</p>
-      <p class="text-muted">En Nexus encontrarás los mejores libros universitarios, un espacio para estudiar y una cafetería para relajarte.</p>
-      <div class="mt-4">
-        <a routerLink="/search" class="btn btn-lg btn-primary">Ver catálogo</a>
-      </div>
+<div class="landing-container">
+  <!-- HERO SECTION MEJORADO -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1 class="hero-title">{{ tienda }}</h1>
+      <p class="hero-subtitle">{{ descripcion }}</p>
+      <p class="hero-description">
+        Acceso completo a libros, cafetería y espacios de coworking. 
+        Todo lo que necesitas para estudiar y trabajar en un solo lugar.
+      </p>
     </div>
-    <div class="col-lg-6 text-center">
-      <div class="hero-img shadow rounded overflow-hidden">
-        <img [src]="heroImage" class="img-fluid" alt="Librería Nexus">
-      </div>
-    </div>
-  </div>
 
-  <div class="row mt-5 g-4">
-    <div class="col-md-4">
-      <a routerLink="/search" class="card feature-card h-100 text-decoration-none text-dark">
-        <img src="https://images.unsplash.com/photo-1464983953574-0892a716854b" class="card-img-top" alt="Libros">
-        <div class="card-body">
-          <h5 class="card-title">Libros</h5>
-          <p class="card-text">Catálogo actualizado de libros universitarios y de interés general.</p>
-        </div>
-      </a>
+    <!-- Decoración visual -->
+    <div class="hero-decoration">
+      <div class="decoration-item deco-1">📚</div>
+      <div class="decoration-item deco-2">☕</div>
+      <div class="decoration-item deco-3">💼</div>
     </div>
-    <div class="col-md-4">
-      <div class="card feature-card h-100">
-        <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb" class="card-img-top" alt="Coworking">
-        <div class="card-body">
-          <h5 class="card-title">Coworking</h5>
-          <p class="card-text">Zona de estudio y trabajo colaborativo para estudiantes y profesionales.</p>
+  </section>
+
+  <!-- SECCIONES (3 CARDS) -->
+  <section class="features">
+    <div class="container">
+      <div class="row g-4">
+        <div *ngFor="let section of sections" class="col-md-4">
+          <div class="feature-card card h-100" [routerLink]="section.link" style="cursor: pointer;">
+            <div class="card-body text-center">
+              <div class="card-icon">{{ section.icon }}</div>
+              <h5 class="card-title">{{ section.title }}</h5>
+              <p class="card-text">{{ section.description }}</p>
+            </div>
+            <div class="card-footer bg-transparent border-0 text-center">
+              <a [routerLink]="section.link" class="btn btn-sm btn-outline-primary">
+                Explorar
+              </a>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-    <div class="col-md-4">
-      <div class="card feature-card h-100">
-        <img src="https://images.unsplash.com/photo-1519125323398-675f0ddb6308" class="card-img-top" alt="Cafetería">
-        <div class="card-body">
-          <h5 class="card-title">Cafetería</h5>
-          <p class="card-text">Disfruta de café y snacks en un ambiente relajado y moderno.</p>
-        </div>
-      </div>
-    </div>
-  </div>
+  </section>
 </div>
