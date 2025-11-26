@@ -27,7 +27,6 @@ export class CoworkingService {
   }
 
   getById(id: string | number): Observable<any> {
-    // Buscar en datos estáticos en lugar de llamar a la API
     const room = this.roomsData.find(r => r.id === Number(id));
     return of(room || {});
   }

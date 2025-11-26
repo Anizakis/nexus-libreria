@@ -11,7 +11,7 @@ export const routes: Routes = [
   { path: 'catalogo/:id', component: BookDetailComponent },
   { path: 'cart', component: CartComponent },
 
-  // Carga lazy de componentes standalone
+  // Carga lazy de componentes 
   { path: 'cafeteria', loadComponent: () => import('./components/cafeteria/cafeteria').then(m => m.CafeteriaComponent) },
   { path: 'cafeteria/:id', loadComponent: () => import('./components/cafeteria/cafeteria-detail').then(m => m.CafeteriaDetailComponent) },
 
@@ -21,5 +21,5 @@ export const routes: Routes = [
   { path: 'contacto', loadComponent: () => import('./components/contact/contact').then(m => m.ContactComponent) },
 
   { path: 'search', redirectTo: 'catalogo', pathMatch: 'full' },
-  { path: '**', redirectTo: 'catalogo' }
+  { path: '**', redirectTo: 'cart' }
 ];

@@ -82,26 +82,7 @@ export class CartService {
     this.itemsSubject.next([...items]);
     this.saveToStorage(items);
   }
-
-  /**
-   * Vacía el carrito
-   */
-  clear(): void {
-    try {
-      // Si el servicio utiliza un Subject interno lo vaciamos si existe
-      const anyThis: any = this as any;
-      if (anyThis.itemsSubject && typeof anyThis.itemsSubject.next === 'function') {
-        anyThis.itemsSubject.next([]);
-      } else {
-        // fallback: borrar persistencia local
-        localStorage.removeItem('cart');
-      }
-    } catch (e) {
-      try { localStorage.removeItem('cart'); } catch {}
-    }
-  }
-
-  /**
+    /**
    * Calcula el total del carrito (price * qty).
    */
   getTotal(): number {
@@ -114,6 +95,24 @@ export class CartService {
       }, 0);
     } catch (e) {
       return 0;
+    }
+  }
+
+
+  /**
+   * Vacía el carrito
+   */
+  clear(): void {
+    try {
+      const anyThis: any = this as any;
+      if (anyThis.itemsSubject && typeof anyThis.itemsSubject.next === 'function') {
+        anyThis.itemsSubject.next([]);
+      } else {
+        // fallback: borrar persistencia local
+        localStorage.removeItem('cart');
+      }
+    } catch (e) {
+      try { localStorage.removeItem('cart'); } catch {}
     }
   }
 

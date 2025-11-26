@@ -17,8 +17,7 @@ export class CafeteriaService {
   }
 
   getProductById(id: string | number): Observable<any> {
-    // Buscar en caché primero (asegura usar la misma imagen que en la lista)
-    const cached = this.productsCache.find(p => String(p.id) === String(id));
+       const cached = this.productsCache.find(p => String(p.id) === String(id));
     if (cached) {
       return of(cached);
     }

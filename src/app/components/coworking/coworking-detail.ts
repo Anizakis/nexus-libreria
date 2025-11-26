@@ -39,7 +39,6 @@ export class CoworkingDetailComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id') || '';
-    console.log('🔵 NAVEGANDO A SALA CON ID:', id, typeof id);
     this.subscription = this.svc.getById(id).subscribe({
       next: (res: any) => {
         this.item = res;

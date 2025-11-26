@@ -16,7 +16,6 @@
 
   <div *ngIf="product" class="row g-4">
     <div class="col-12 col-md-5">
-      <!-- Mostrar exactamente la misma propiedad image que usa /cafeteria -->
       <img *ngIf="product?.image" [src]="product.image" [alt]="product?.name" class="img-fluid rounded">
       <div *ngIf="!product?.image" class="text-muted">Imagen no disponible</div>
     </div>
