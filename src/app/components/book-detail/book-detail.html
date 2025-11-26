@@ -1,4 +1,5 @@
-<div class="container py-4" *ngIf="!loading; else loadingTpl">
+<div class="app-container">
+  <div class="container py-4" *ngIf="!loading; else loadingTpl">
   <div *ngIf="book; else notFoundTpl" class="card shadow-sm border-0">
     <!-- Botón volver con padding en todos lados -->
     <div class="p-3">
@@ -93,3 +94,4 @@
 <ng-template #notFoundTpl>
   <div class="alert alert-warning">Libro no encontrado. <a routerLink="/">Volver al inicio</a></div>
 </ng-template>
+</div>
